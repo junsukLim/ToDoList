@@ -9,47 +9,56 @@ import com.todo.service.TodoUtil;
 public class TodoMain {
 	
 	public static void start() {
-	
 		Scanner sc = new Scanner(System.in);
 		TodoList l = new TodoList();
+		TodoUtil u = new TodoUtil();
 		boolean isList = false;
 		boolean quit = false;
+		u.loadList(l,"todolist.txt");
+		Menu.displaymenu();
 		do {
-			Menu.displaymenu();
+			Menu.prompt();
 			isList = false;
 			String choice = sc.next();
 			switch (choice) {
-
+			
+			case "help":
+				Menu.displaymenu();
+				break;
+				
 			case "add":
-				TodoUtil.createItem(l);
+				u.createItem(l);
 				break;
 			
 			case "del":
-				TodoUtil.deleteItem(l);
+				u.deleteItem(l);
 				break;
 				
 			case "edit":
-				TodoUtil.updateItem(l);
+				u.updateItem(l);
 				break;
 				
 			case "ls":
-				TodoUtil.listAll(l);
+				u.listAll(l);
 				break;
 
 			case "ls_name_asc":
 				l.sortByName();
 				isList = true;
+				System.out.println("제목순 정렬이 완료되었습니다.");
 				break;
 
 			case "ls_name_desc":
 				l.sortByName();
 				l.reverseList();
 				isList = true;
+				System.out.println("제목역순 정렬이 완료되었습니다.");
 				break;
 				
 			case "ls_date":
 				l.sortByDate();
 				isList = true;
+				System.out.println("날짜순 정렬이 완료되었습니다.");
 				break;
 
 			case "exit":
@@ -57,11 +66,12 @@ public class TodoMain {
 				break;
 
 			default:
-				System.out.println("please enter one of the above mentioned command");
+				System.out.println("실행할 메뉴의 이름을 정확하게 입력해주세요. [메뉴다시보기 - help]");
 				break;
 			}
 			
 			if(isList) l.listAll();
 		} while (!quit);
+		u.saveList(l,"todolist.txt");
 	}
 }
