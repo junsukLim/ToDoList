@@ -5,25 +5,27 @@ import java.util.Date;
 
 public class TodoItem {
     private String title;
-    private String desc;
+    private String memo;
     private String current_date;
 	private String category;
 	private String due_date;
+	private int id;
 
 
-    public TodoItem(String category,String title, String desc,String due_date){
+    public TodoItem(String title,String memo, String category,String due_date){
+    	super();
         this.category=category;
     	this.title=title;
-        this.desc=desc;
+        this.memo=memo;
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.due_date=due_date;
         this.current_date=f.format(new Date());
     }
     
-    public TodoItem(String category,String title, String desc,String due_date,String time){
+    public TodoItem(String title,String memo, String category,String due_date,String time){
     	this.category=category;
         this.title=title;
-        this.desc=desc;
+        this.memo=memo;
         this.due_date=due_date;
         this.current_date=time;
     }
@@ -37,15 +39,15 @@ public class TodoItem {
     }
 
     public String getDesc() {
-        return desc;
+        return memo;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDesc(String memo) {
+        this.memo = memo;
     }
 
     public String toSaveString() {
-		return category+"##"+title+"##"+desc+"##"+due_date+"##"+current_date+"\n";
+		return category+"##"+title+"##"+memo+"##"+due_date+"##"+current_date+"\n";
 	}
 
 	public String getCurrent_date() {
@@ -71,4 +73,17 @@ public class TodoItem {
     public void setDue_date(String due_date) {
         this.due_date = due_date;
     }
+    
+    @Override
+    public String toString() {
+    	return id+" ["+category+"] " +title + " - "+ memo + " - " + due_date + " - " +current_date;
+    }
+
+	public void setId(int id) {
+		this.id=id;
+	}
+
+	public int getId() {
+		return id;
+	}
 }

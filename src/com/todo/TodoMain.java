@@ -14,7 +14,9 @@ public class TodoMain {
 		TodoUtil u = new TodoUtil();
 		boolean isList = false;
 		boolean quit = false;
-		u.loadList(l,"todolist.txt");
+		/*
+		 l.importData("todolist.txt");
+		*/
 		Menu.displaymenu();
 		do {
 			Menu.prompt();
@@ -43,41 +45,37 @@ public class TodoMain {
 				break;
 				
 			case "ls_cate":
-				u.listCate(l);
+				TodoUtil.listCateAll(l);
 				break;
 				
 			case "find":
-				u.findItem(l);
+				String keyword = sc.nextLine().trim();
+				TodoUtil.findList(l,keyword);
 				break;
 				
 			case "find_cate":
-				u.findCate(l);
+				String cate = sc.nextLine().trim();
+				TodoUtil.findCateList(l,cate);
 				break;
-
-			case "ls_name_asc":
-				l.sortByName();
-				isList = true;
+				
+			case "ls_name":
 				System.out.println("제목순 정렬이 완료되었습니다.");
+				TodoUtil.listAll(l,"title",1);
 				break;
 
 			case "ls_name_desc":
-				l.sortByName();
-				l.reverseList();
-				isList = true;
 				System.out.println("제목역순 정렬이 완료되었습니다.");
+				TodoUtil.listAll(l,"title",0);
 				break;
 				
 			case "ls_date":
-				l.sortByDate();
-				isList = true;
 				System.out.println("날짜순 정렬이 완료되었습니다.");
+				TodoUtil.listAll(l,"due_date",1);
 				break;
 				
 			case "ls_date_desc":
-				l.sortByDate();
-				l.reverseList();
-				isList = true;
 				System.out.println("날짜역순 정렬이 완료되었습니다.");
+				TodoUtil.listAll(l,"due_date",0);
 				break;
 
 			case "exit":
