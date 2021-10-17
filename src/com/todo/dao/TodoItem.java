@@ -10,9 +10,11 @@ public class TodoItem {
 	private String category;
 	private String due_date;
 	private int id;
+	private int is_completed;
+	private int importance;
+	private String member;
 
-
-    public TodoItem(String title,String memo, String category,String due_date){
+    public TodoItem(String title,String memo, String category,String due_date,int is_completed,int importance,String member){
     	super();
         this.category=category;
     	this.title=title;
@@ -20,14 +22,20 @@ public class TodoItem {
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd kk:mm:ss");
         this.due_date=due_date;
         this.current_date=f.format(new Date());
+        this.is_completed=is_completed;
+        this.importance=importance;
+        this.member=member;
     }
     
-    public TodoItem(String title,String memo, String category,String due_date,String time){
+    public TodoItem(String title,String memo, String category,String due_date,String time,int is_completed,int importance,String member){
     	this.category=category;
         this.title=title;
         this.memo=memo;
         this.due_date=due_date;
         this.current_date=time;
+        this.is_completed=is_completed;
+        this.importance=importance;
+        this.member=member;
     }
     
     public String getTitle() {
@@ -76,7 +84,12 @@ public class TodoItem {
     
     @Override
     public String toString() {
-    	return id+" ["+category+"] " +title + " - "+ memo + " - " + due_date + " - " +current_date;
+    	if(is_completed==0) {
+    		return id+". 중요도:"+importance+" [X] "+" ["+category+"] " +title + " - "+ memo+" [with "+member+"] " +" - " + due_date + " - " +current_date + importance;
+    	}
+    	else {
+    		return id+". 중요도:"+importance+" [O] "+" ["+category+"] " +title + " - "+ memo+" [with "+member+"] " +" - " + due_date + " - " +current_date + importance;
+    	}
     }
 
 	public void setId(int id) {
@@ -85,5 +98,29 @@ public class TodoItem {
 
 	public int getId() {
 		return id;
+	}
+
+	public int getIs_completed() {
+		return is_completed;
+	}
+
+	public void setIs_completed(int is_completed) {
+		this.is_completed = is_completed;
+	}
+
+	public int getImportance() {
+		return importance;
+	}
+
+	public void setImportance(int importance) {
+		this.importance = importance;
+	}
+
+	public String getMember() {
+		return member;
+	}
+
+	public void setMember(String member) {
+		this.member = member;
 	}
 }
